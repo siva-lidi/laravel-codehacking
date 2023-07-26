@@ -13,6 +13,7 @@
         <th>Id</th>
         <th>Name</th>
         <th>Email</th>
+        <th>Photo</th>
         <th>Role</th>
         <th>Active</th>
         <th>Created</th>
@@ -25,6 +26,9 @@
             <td>{{$user->id}}</td>
             <td>{{$user->name}}</td>
             <td>{{$user->email}}</td>
+            <td>
+                <img src="{{$user->photo->file}}" alt="" width="80px" height="80px">
+            </td>
             <td>{{Str::ucfirst($user->role->name)}}</td>
             <td>{{$user->is_active == 1 ? 'Active' : 'Not Active'}}</td>
             <td>{{$user->created_at->diffForHumans()}}</td>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UsersRequest;
+use App\Models\Photo;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -37,19 +38,11 @@ class AdminUserController extends Controller
             $file=$request->file('photo_id');
             $name=time().'-'.$file->getClientOriginalName().'.'.$file->getClientOriginalExtension();
             $filePath=$file->storeAs('Photos',$name,'public');
-            $inputs['photo_id']='/storage/'.$filePath;
+            $path='/storage/'.$filePath;
+            $photo=Photo::create(['file'=>$path]);
+            $inputs['photo_id']=$photo->id;
         } 
         User::create($inputs);        
-        
-        
-        // User::create([
-        //     'name'=>$request->name,
-        //     'email'=>$request->email,
-        //     'photo_id'=>$request->photo_id,
-        //     'role_id'=>$request->role_id,
-        //     'is_active'=>$request->is_active,
-        //     'password'=>$request->password,
-        // ]);
 
         session()->flash('user-created','User Created Successfully');
         return redirect()->route('users.index');
