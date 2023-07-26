@@ -32,15 +32,24 @@ class AdminUserController extends Controller
      */
     public function store(UsersRequest $request)
     {
-        // return $request->all();
-        User::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'photo_id'=>$request->photo_id,
-            'role_id'=>$request->role_id,
-            'is_active'=>$request->is_active,
-            'password'=>$request->password,
-        ]);
+        $inputs=$request->all();
+        if ($request->hasFile('photo_id')) {
+            $file=$request->file('photo_id');
+            $name=time().'-'.$file->getClientOriginalName().'.'.$file->getClientOriginalExtension();
+            $filePath=$file->storeAs('Photos',$name,'public');
+            $inputs['photo_id']='/storage/'.$filePath;
+        } 
+        User::create($inputs);        
+        
+        
+        // User::create([
+        //     'name'=>$request->name,
+        //     'email'=>$request->email,
+        //     'photo_id'=>$request->photo_id,
+        //     'role_id'=>$request->role_id,
+        //     'is_active'=>$request->is_active,
+        //     'password'=>$request->password,
+        // ]);
 
         session()->flash('user-created','User Created Successfully');
         return redirect()->route('users.index');
