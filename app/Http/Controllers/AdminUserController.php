@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UsersRequest;
+use App\Http\Requests\UsersUpdateRequest;
 use App\Models\Photo;
 use App\Models\Role;
 use App\Models\User;
@@ -48,33 +49,31 @@ class AdminUserController extends Controller
         return redirect()->route('users.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(User $user)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        $roles=Role::all();
+        return view('admin.user.edit',compact('user','roles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UsersUpdateRequest $request, User $user)
     {
-        //
+        $inputs=$request->all();
+        if ($request->hasFile('photo_id')) {
+            $file=$request->file('photo_id');
+            $name=time().'-'.$file->getClientOriginalName().'.'.$file->getClientOriginalExtension();
+            $path=$file->storeAs('Photos',$name,'public');
+            $filePath='/storage/'.$path;
+            $photo=Photo::create(['file'=>$filePath]);
+            $inputs['photo_id']=$photo->id;
+        }        
+        $user->update($inputs);
+        session()->flash('user-updated','User Updated Successfully');
+        return redirect()->route('users.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //
