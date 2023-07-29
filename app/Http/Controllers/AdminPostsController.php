@@ -28,10 +28,6 @@ class AdminPostsController extends Controller
         $categories=Category::all();
         return view('admin.post.create',compact('categories'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(PostsCreateRequest $request)
     {
         $user=Auth::user();
