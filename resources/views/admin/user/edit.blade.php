@@ -60,7 +60,12 @@
                     <span class="text-danger"><strong>{{$message}}</strong></span>
                     @enderror
                 </div>
-                <button class="btn btn-primary" type="submit" >Update</button>
+                <button class="btn btn-primary col-sm-2" type="submit" >Update</button>
+            </form>
+            <form method="POST" action="{{route('users.destroy',$user->id)}}">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger col-sm-2" type="submit">Delete</button>
             </form>
         </div>
     </div>

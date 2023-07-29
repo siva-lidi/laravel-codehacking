@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminPostsController;
+use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\Admin;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,16 @@ Route::get('/admin',function(){
     return view('admin.index');
 });
 
-Route::resource('admin/users',AdminUserController::class);
+Route::group(['middleware'=>['auth','admin']], function(){
+
+    Route::get('/admin',function(){
+        return view('admin.index');
+    });
+
+    Route::resource('admin/users', AdminUsersController::class);
+    Route::resource('/admin/posts',AdminPostsController::class);
+});
+
+
 
 require __DIR__.'/auth.php';

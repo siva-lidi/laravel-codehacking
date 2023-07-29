@@ -16,12 +16,12 @@
 
     <link href="{{asset('css/libs.css')}}" rel="stylesheet"> --}}
     {{-- @vite(['resources/css/app.css','resources/sass/app.sass', 'resources/js/app.js']) --}}
-    <script src="https://kit.fontawesome.com/958e2e8e4c.js" crossorigin="anonymous"></script>
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"> --}}
 
     <link rel="stylesheet" href="{{asset('css/libs/blog-post.css')}}">
     <link rel="stylesheet" href="{{asset('css/libs/bootstrap.css')}}">
     <link rel="stylesheet" href="{{asset('css/libs/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/libs/font-awesome.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/fontawesome-free/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/libs/metisMenu.css')}}">
     <link rel="stylesheet" href="{{asset('css/libs/sb-admin-2.css')}}">
     <link rel="stylesheet" href="{{asset('css/libs/styles.css')}}">
@@ -66,7 +66,7 @@
             <!-- /.dropdown -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-user fa-fw"></i>{{Auth::user()->name}}<i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
@@ -150,11 +150,11 @@
                         <a href="#"><i class="fa fa-wrench fa-fw"></i> Posts<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/posts">All Posts</a>
+                                <a href="{{route('posts.index')}}">All Posts</a>
                             </li>
 
                             <li>
-                                <a href="/posts/create">Create Post</a>
+                                <a href="{{route('posts.create')}}"">Create Post</a>
                             </li>
 
                         </ul>
@@ -359,9 +359,17 @@
 <!-- /#wrapper -->
 
 <!-- jQuery -->
-<script src="{{asset('js/libs/jquery.js')}}"></script>
+{{-- <script src="{{asset('js/libs/jquery.js')}}"></script>
 <script src="{{asset('js/libs/bootstrap.js')}}"></script>
-<script src="{{asset('js/libs/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/libs/bootstrap.min.js')}}"></script> --}}
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+  <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+  <!-- Core plugin JavaScript-->
+  {{-- <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script> --}}
+
 <script src="{{asset('js/libs/metisMenu.js')}}"></script>
 <script src="{{asset('js/libs/sb-admin-2.js')}}"></script>
 <script src="{{asset('js/libs/scripts.js')}}"></script>

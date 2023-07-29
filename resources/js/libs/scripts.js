@@ -35,13 +35,12 @@ $(document).ready(function(){
     /**************** User Profile **********************/
 
 
-
     var panels = $('.user-infos');
     var panelsButton = $('.dropdown-user');
     panels.hide();
 
     //Click dropdown
-    panelsButton.click(function() {
+    panelsButton.on("click",function() {
         //get data-for attribute
         var dataFor = $(this).attr('data-for');
         var idFor = $(dataFor);

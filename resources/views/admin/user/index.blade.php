@@ -1,10 +1,12 @@
 @extends('layouts.admin')
 @section('content')
-<h1>Hello User</h1>
+<h1>Our User's</h1>
 @if (session('user-created'))
 <div class="alert alert-success">{{session('user-created')}}</div>
 @elseif(session('user-updated'))
 <div class="alert alert-success">{{session('user-updated')}}</div>
+@elseif(session('user-deleted'))
+<div class="alert alert-danger">{{session('user-deleted')}}</div>
 @endif
 <div class="row">
 <div class="col-sm-12">
